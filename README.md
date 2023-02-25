@@ -1,21 +1,3 @@
-# tech_meetup_202304
-test1
-test11
-test111
-test1111
-test11111
-test111111
-test1111111
-test11111111
-test111111111
-test1111111111
-test2
-test22
-test222
-test2222
-test22222
-test222222
-test2222222
-test22222222
-test222222222
-test2222222222
+# i株式会社 2023年4月 勉強会用リポジトリ
+### CIのハンズオン
+GitHub Actions を使って、flask のコンテナイメージを build して、DockerHub に push する。
