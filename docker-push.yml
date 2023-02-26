@@ -1,0 +1,34 @@
+name: build flask image, push image to docker hub  # workflow名
+on:  # イベントトリガー
+  pull_request:  # pull request のイベント通知
+    types:
+      - closed    # pull request がcloseになったイベントを検知
+
+jobs:
+  push_to_registry:  # job名
+    name: Push Docker image to Docker Hub
+    if: github.event.pull_request.merged == true  # pull request がマージされた場合
+    runs-on: ubuntu-latest  # jobを実行するVMイメージ
+    steps:  # jobで実行するステップ
+      - name: Check out repository code  # リポジトリからコードをVM上にチェックアウト
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2  # Docker Hubにログイン
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # GitHub で登録した環境変数
+          password: ${{ secrets.DOCKER_PASSWORD }}  # GitHub で登録した環境変数
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: rharuki202304/tech-meetup-202304  # Docker image名
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4  # Docker image を build して、Docker Hubへpush
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }
