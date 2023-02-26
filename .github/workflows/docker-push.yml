@@ -18,17 +18,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}  # GitHub で登録した環境変数
           password: ${{ secrets.DOCKER_PASSWORD }}  # GitHub で登録した環境変数
-      
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: rharuki202304/tech-meetup-202304
-      
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v4  # Docker image を build して、Docker Hubへpush
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: rharuki202304/tech-meetup-202304:latest
