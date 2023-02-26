@@ -21,9 +21,9 @@ jobs:
       
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
-          images: rharuki202304/tech-meetup-202304  # Docker image名
+          images: rharuki202304/tech-meetup-202304
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v4  # Docker image を build して、Docker Hubへpush
